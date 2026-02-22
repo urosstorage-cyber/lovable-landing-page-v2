@@ -1,6 +1,9 @@
 import * as React from "react";
 
-import type { ToastActionElement, ToastProps } from "@/components/ui/toast";
+import type {
+  ToastActionElement,
+  ToastProps,
+} from "@/components/ui/toast";
 
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
@@ -74,13 +77,15 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
-      };
+      }
 
     case "UPDATE_TOAST":
       return {
         ...state,
-        toasts: state.toasts.map((t) => (t.id === action.toast.id ? { ...t, ...action.toast } : t)),
-      };
+        toasts: state.toasts.map((t) =>
+          t.id === action.toast.id ? { ...t, ...action.toast } : t
+        ),
+      }
 
     case "DISMISS_TOAST": {
       const { toastId } = action;
@@ -88,11 +93,11 @@ export const reducer = (state: State, action: Action): State => {
       // ! Side effects ! - This could be extracted into a dismissToast() action,
       // but I'll keep it here for simplicity
       if (toastId) {
-        addToRemoveQueue(toastId);
+        addToRemoveQueue(toastId)
       } else {
         state.toasts.forEach((toast) => {
-          addToRemoveQueue(toast.id);
-        });
+          addToRemoveQueue(toast.id)
+        })
       }
 
       return {
@@ -103,23 +108,23 @@ export const reducer = (state: State, action: Action): State => {
                 ...t,
                 open: false,
               }
-            : t,
+            : t
         ),
-      };
+      }
     }
     case "REMOVE_TOAST":
       if (action.toastId === undefined) {
         return {
           ...state,
           toasts: [],
-        };
+        }
       }
       return {
         ...state,
         toasts: state.toasts.filter((t) => t.id !== action.toastId),
-      };
+      }
   }
-};
+}
 
 const listeners: Array<(state: State) => void> = [];
 
@@ -151,7 +156,7 @@ function toast({ ...props }: Toast) {
       id,
       open: true,
       onOpenChange: (open) => {
-        if (!open) dismiss();
+        if (!open) dismiss()
       },
     },
   });
@@ -179,7 +184,8 @@ function useToast() {
   return {
     ...state,
     toast,
-    dismiss: (toastId?: string) => dispatch({ type: "DISMISS_TOAST", toastId }),
+    dismiss: (toastId?: string) =>
+      dispatch({ type: "DISMISS_TOAST", toastId }),
   };
 }
 
