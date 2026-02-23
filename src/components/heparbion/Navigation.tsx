@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ShoppingBag } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { itemCount, openDrawer } = useCart();
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,10 +26,10 @@ const Navigation: React.FC = () => {
   };
 
   const navLinks = [
-    { label: 'Formula', id: 'solution' },
-    { label: 'Clinic', id: 'clinic' },
-    { label: 'Assessment', id: 'quiz' },
-    { label: 'Pricing', id: 'pricing' },
+    { label: t('nav.formula'), id: 'solution' },
+    { label: t('nav.clinic'), id: 'clinic' },
+    { label: t('nav.assessment'), id: 'quiz' },
+    { label: t('nav.pricing'), id: 'pricing' },
   ];
 
   return (
@@ -66,8 +68,32 @@ const Navigation: React.FC = () => {
           ))}
         </div>
 
-        {/* CTA + Cart */}
+        {/* CTA + Cart + Language */}
         <div className="hidden md:flex items-center gap-3">
+          {/* Language Switcher */}
+          <div className="flex items-center bg-emerald-500/[0.04] border border-emerald-500/[0.08] rounded-full p-0.5">
+            <button
+              onClick={() => setLanguage('slo')}
+              className={`px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-wide transition-all duration-300 ${
+                language === 'slo'
+                  ? 'bg-emerald-500 text-white shadow-sm'
+                  : 'text-emerald-500/50 hover:text-emerald-500'
+              }`}
+            >
+              SLO
+            </button>
+            <button
+              onClick={() => setLanguage('en')}
+              className={`px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-wide transition-all duration-300 ${
+                language === 'en'
+                  ? 'bg-emerald-500 text-white shadow-sm'
+                  : 'text-emerald-500/50 hover:text-emerald-500'
+              }`}
+            >
+              EN
+            </button>
+          </div>
+
           {/* Cart Button */}
           <button
             onClick={openDrawer}
@@ -86,12 +112,20 @@ const Navigation: React.FC = () => {
             onClick={() => scrollTo('pricing')}
             className="btn-glow relative px-6 py-2.5 bg-emerald-500 text-white text-sm font-medium tracking-wide rounded-full hover:bg-emerald-600 transition-all duration-300"
           >
-            ORDER NOW
+            {t('nav.orderNow')}
           </button>
         </div>
 
-        {/* Mobile: Cart + Menu */}
+        {/* Mobile: Lang + Cart + Menu */}
         <div className="flex md:hidden items-center gap-2">
+          {/* Mobile Language Toggle */}
+          <button
+            onClick={() => setLanguage(language === 'en' ? 'slo' : 'en')}
+            className="px-2 py-1 rounded-lg bg-emerald-500/[0.06] text-[10px] font-bold text-emerald-500/70 tracking-wide"
+          >
+            {language === 'en' ? 'SLO' : 'EN'}
+          </button>
+
           {/* Mobile Cart */}
           <button
             onClick={openDrawer}
@@ -136,7 +170,7 @@ const Navigation: React.FC = () => {
               }}
               className="mt-2 w-full py-3 bg-emerald-500 text-white text-sm font-medium tracking-wide rounded-full"
             >
-              ORDER NOW
+              {t('nav.orderNow')}
             </button>
           </div>
         </div>

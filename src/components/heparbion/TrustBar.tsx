@@ -1,17 +1,19 @@
 import React from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Shield, FlaskConical, Leaf, Award, Globe } from 'lucide-react';
-
-const badges = [
-  { icon: Globe, label: 'Made in EU', sub: 'European Quality' },
-  { icon: Shield, label: 'GMP Certified', sub: 'Pharmaceutical Grade' },
-  { icon: Award, label: 'ISO 22000', sub: 'Food Safety' },
-  { icon: Leaf, label: 'Vegetarian', sub: 'Vegan Capsules' },
-  { icon: FlaskConical, label: 'Lab Tested', sub: 'Independent Verification' },
-];
 
 const TrustBar: React.FC = () => {
   const { ref, isRevealed } = useScrollReveal(0.2);
+  const { t } = useLanguage();
+
+  const badges = [
+    { icon: Globe, label: t('trust.madeInEU'), sub: t('trust.madeInEU.sub') },
+    { icon: Shield, label: t('trust.gmp'), sub: t('trust.gmp.sub') },
+    { icon: Award, label: t('trust.iso'), sub: t('trust.iso.sub') },
+    { icon: Leaf, label: t('trust.veg'), sub: t('trust.veg.sub') },
+    { icon: FlaskConical, label: t('trust.lab'), sub: t('trust.lab.sub') },
+  ];
 
   return (
     <section ref={ref} className="relative py-12 border-y border-emerald-500/5">
@@ -19,7 +21,7 @@ const TrustBar: React.FC = () => {
         <div className="flex flex-wrap justify-center gap-6 md:gap-10 lg:gap-16">
           {badges.map((badge, i) => (
             <div
-              key={badge.label}
+              key={i}
               className={`flex items-center gap-3 scroll-reveal ${isRevealed ? 'revealed' : ''}`}
               style={{ transitionDelay: `${i * 100}ms` }}
             >
