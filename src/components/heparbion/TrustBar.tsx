@@ -16,23 +16,19 @@ const TrustBar: React.FC = () => {
   ];
 
   return (
-    <section ref={ref} className="relative py-12 border-y border-emerald-500/5">
+    <section ref={ref} className="relative py-12 border-y border-foreground/5">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex flex-wrap justify-center gap-6 md:gap-10 lg:gap-16">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap justify-center gap-4 md:gap-10 lg:gap-16">
           {badges.map((badge, i) => (
-            <div
-              key={i}
+            <div key={i}
               className={`flex items-center gap-3 scroll-reveal ${isRevealed ? 'revealed' : ''}`}
-              style={{ transitionDelay: `${i * 100}ms` }}
-            >
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/[0.04] border border-emerald-500/[0.06] flex items-center justify-center">
-                <badge.icon size={18} className="text-emerald-500/50" strokeWidth={1.5} />
+              style={{ transitionDelay: `${i * 100}ms` }}>
+              <div className="w-10 h-10 rounded-xl bg-brand/[0.06] border border-brand/[0.1] flex items-center justify-center">
+                <badge.icon size={18} className="text-brand/70" strokeWidth={1.5} />
               </div>
               <div>
-                <p className="text-xs font-semibold text-emerald-500/80 tracking-wide">
-                  {badge.label}
-                </p>
-                <p className="text-[10px] text-emerald-500/40">{badge.sub}</p>
+                <p className="text-xs font-semibold text-foreground/80 tracking-wide">{badge.label}</p>
+                <p className="text-[10px] text-foreground/40">{badge.sub}</p>
               </div>
             </div>
           ))}

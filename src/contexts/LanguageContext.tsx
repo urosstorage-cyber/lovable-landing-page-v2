@@ -124,7 +124,7 @@ const translations: Record<Language, Record<string, string>> = {
     'quiz.result.low.title': 'Preventive Wellness',
     'quiz.result.low.desc': 'Your liver appears to be functioning well. However, proactive support with bitter botanicals can help maintain this balance, especially during periods of stress or dietary changes.',
     'quiz.result.low.rec': 'Consider Heparbion Plus as a preventive addition to your wellness routine.',
-    'quiz.result.low.cta': 'Add 1 Bottle to Cart',
+    'quiz.result.low.cta': 'Download Free E-book',
 
     // Clinic
     'clinic.eyebrow': 'Trust & Authority',
@@ -346,7 +346,7 @@ const translations: Record<Language, Record<string, string>> = {
     'quiz.result.low.title': 'Preventivno počutje',
     'quiz.result.low.desc': 'Zdi se, da vaša jetra delujejo dobro. Proaktivna podpora z grenčinami pa pomaga ohranjati to ravnovesje, zlasti v obdobjih stresa.',
     'quiz.result.low.rec': 'Razmislite o Heparbion Plus kot preventivnem dodatku vaši rutini.',
-    'quiz.result.low.cta': 'Dodaj 1 stekleničko v košarico',
+    'quiz.result.low.cta': 'Prenesi brezplačen e-priročnik',
 
     // Clinic
     'clinic.eyebrow': 'Zaupanje in avtoriteta',
