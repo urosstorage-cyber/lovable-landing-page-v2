@@ -1,16 +1,16 @@
 import React from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { useCart } from '@/contexts/CartContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Check, Star, Package, Truck, ShieldCheck } from 'lucide-react';
-
-const PRODUCT_THUMB = 'https://d64gsuwffb70l.cloudfront.net/699afc85723b98553d778884_1771766011742_1f7093db.webp';
 
 const PricingSection: React.FC = () => {
   const { ref: titleRef, isRevealed: titleRevealed } = useScrollReveal();
   const { ref: cardsRef, isRevealed: cardsRevealed } = useScrollReveal(0.1);
-  const { addItem } = useCart();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  const orderUrl = language === 'slo'
+    ? 'https://aleksandrakomasz-plus.com/sl/izdelek/heparbion-plus/'
+    : 'https://aleksandrakomasz-plus.com/product/heparbion-plus/';
 
   const tiers = [
     {
@@ -35,14 +35,6 @@ const PricingSection: React.FC = () => {
     },
   ];
 
-  const handleOrder = (tier: typeof tiers[0]) => {
-    addItem({
-      id: tier.id, name: tier.name, bottles: tier.bottles,
-      price: tier.price, originalPrice: tier.originalPrice,
-      perBottle: tier.perBottle, savings: tier.savings, image: PRODUCT_THUMB,
-    });
-  };
-
   return (
     <section id="pricing" className="relative py-24 md:py-32 overflow-hidden">
       <div className="absolute inset-0 mesh-gradient-dark" />
@@ -58,17 +50,15 @@ const PricingSection: React.FC = () => {
 
         <div ref={cardsRef} className="grid md:grid-cols-3 gap-5 lg:gap-6">
           {tiers.map((tier, i) => (
-            <div
-              key={tier.id}
+            <div key={tier.id}
               className={`relative rounded-3xl transition-all duration-500 scroll-reveal ${cardsRevealed ? 'revealed' : ''} ${
                 tier.popular ? 'bg-white/[0.1] border-2 border-gold-400/30 shadow-xl shadow-gold-400/5' : 'bg-white/[0.04] border border-white/[0.08]'
               }`}
-              style={{ transitionDelay: `${i * 150}ms` }}
-            >
+              style={{ transitionDelay: `${i * 150}ms` }}>
               {tier.badge && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                   <span className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide ${
-                    tier.popular ? 'bg-gold-400 text-emerald-500' : 'bg-white/10 text-white/70 border border-white/10'
+                    tier.popular ? 'bg-gold-400 text-forest' : 'bg-white/10 text-white/70 border border-white/10'
                   }`}>
                     {tier.popular && <Star size={12} />}
                     {tier.badge}
@@ -86,9 +76,7 @@ const PricingSection: React.FC = () => {
                   {tier.savings > 0 && (
                     <div className="flex items-center gap-2 mt-2">
                       <span className="text-xs text-white/25 line-through">{tier.originalPrice.toFixed(2)}</span>
-                      <span className="text-xs font-medium text-gold-400 bg-gold-400/10 px-2 py-0.5 rounded-full">
-                        {t('pricing.save')} {tier.savings.toFixed(2)}
-                      </span>
+                      <span className="text-xs font-medium text-gold-400 bg-gold-400/10 px-2 py-0.5 rounded-full">{t('pricing.save')} {tier.savings.toFixed(2)}</span>
                     </div>
                   )}
                   <p className="text-xs text-white/25 mt-1">{tier.perBottle} {t('pricing.perBottle')}</p>
@@ -96,24 +84,22 @@ const PricingSection: React.FC = () => {
                 <div className="space-y-3 mb-8">
                   {tier.features.map((feature, fi) => (
                     <div key={fi} className="flex items-start gap-2.5">
-                      <div className="flex-shrink-0 w-4 h-4 rounded-full bg-emerald-400/20 flex items-center justify-center mt-0.5">
-                        <Check size={10} className="text-emerald-300" />
+                      <div className="flex-shrink-0 w-4 h-4 rounded-full bg-brand/20 flex items-center justify-center mt-0.5">
+                        <Check size={10} className="text-brand-300" />
                       </div>
                       <span className="text-xs text-white/50">{feature}</span>
                     </div>
                   ))}
                 </div>
-                <button
-                  onClick={() => handleOrder(tier)}
+                <a href={orderUrl} target="_blank" rel="noopener noreferrer"
                   className={`w-full py-3.5 rounded-full text-sm font-medium tracking-wide transition-all duration-300 flex items-center justify-center gap-2 ${
-                    tier.popular ? 'btn-glow bg-gold-400 text-emerald-500 hover:bg-gold-300' : 'btn-glow bg-white/10 text-white border border-white/10 hover:bg-white/15 hover:border-white/20'
-                  }`}
-                >
+                    tier.popular ? 'btn-glow bg-gold-400 text-forest hover:bg-gold-300' : 'btn-glow bg-white/10 text-white border border-white/10 hover:bg-white/15'
+                  }`}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-70">
                     <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
                   </svg>
                   {tier.cta}
-                </button>
+                </a>
               </div>
             </div>
           ))}

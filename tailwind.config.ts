@@ -64,14 +64,23 @@ export default {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))'
         },
-        // Heparbion Plus Brand Colors
-        emerald: {
+        // Brand Colors from guide
+        brand: {
+          DEFAULT: '#00B493',
+          50: '#e6faf5',
+          100: '#b3f0e0',
+          200: '#80e6cc',
+          300: '#4ddcb8',
+          400: '#26d4a8',
+          500: '#00B493',
+          600: '#009a7e',
+          700: '#007f68',
+          800: '#006553',
+          900: '#004a3d',
+        },
+        // Dark forest green for dark sections
+        forest: {
           DEFAULT: '#043927',
-          50: '#e6f5ef',
-          100: '#b3e0cc',
-          200: '#80cba9',
-          300: '#4db686',
-          400: '#26a66d',
           500: '#043927',
           600: '#033320',
           700: '#022c1a',
@@ -92,12 +101,12 @@ export default {
           900: '#40330f',
         },
         cream: {
-          DEFAULT: '#FAF8F5',
+          DEFAULT: '#F8F5EC',
           50: '#FFFFFF',
-          100: '#FAF8F5',
-          200: '#F5F1EB',
-          300: '#EDE7DD',
-          400: '#E2D9CC',
+          100: '#F8F5EC',
+          200: '#F0ECE1',
+          300: '#E5DFD2',
+          400: '#D9D0C0',
         },
       },
       fontFamily: {
@@ -137,8 +146,8 @@ export default {
           '66%': { transform: 'translateY(-6px) rotate(-1deg)' },
         },
         'glow-pulse': {
-          '0%, 100%': { boxShadow: '0 0 20px rgba(4, 57, 39, 0.3)' },
-          '50%': { boxShadow: '0 0 40px rgba(4, 57, 39, 0.6), 0 0 60px rgba(212, 175, 55, 0.2)' },
+          '0%, 100%': { boxShadow: '0 0 20px rgba(0, 180, 147, 0.3)' },
+          '50%': { boxShadow: '0 0 40px rgba(0, 180, 147, 0.6), 0 0 60px rgba(212, 175, 55, 0.2)' },
         },
         'reveal-up': {
           from: { opacity: '0', transform: 'translateY(60px)' },

@@ -3,7 +3,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Leaf, Mail, MapPin } from 'lucide-react';
 
 const Footer: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -23,12 +23,23 @@ const Footer: React.FC = () => {
     t('footer.quality.eu'), t('footer.quality.veg'), t('footer.quality.noSugar'),
   ];
 
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const form = e.currentTarget as HTMLFormElement;
+    const input = form.querySelector('input') as HTMLInputElement;
+    if (input && input.value) {
+      // Send to mailto
+      window.location.href = `mailto:info@aleksandrakomasz-plus.com?subject=${encodeURIComponent(language === 'slo' ? 'Prijava na novice' : 'Newsletter Signup')}&body=${encodeURIComponent(input.value)}`;
+      input.value = '';
+    }
+  };
+
   return (
-    <footer className="relative bg-emerald-500 text-white overflow-hidden">
+    <footer className="relative bg-forest text-white overflow-hidden">
       <div className="h-[1px] bg-gradient-to-r from-transparent via-gold-400/30 to-transparent" />
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-gold-400/5 blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-emerald-400/5 blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-brand/5 blur-3xl" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-16 md:py-20">
@@ -38,7 +49,7 @@ const Footer: React.FC = () => {
               <Leaf size={18} className="text-gold-400/70" />
               <div>
                 <span className="font-serif text-lg font-semibold tracking-elegant text-white leading-tight block">Aleksandra Komasz</span>
-                <span className="text-xs text-white/40 tracking-wide">/ Plus<span className="text-gold-400">+</span></span>
+                <span className="text-xs text-white/40 tracking-wide">/ Plus<span className="text-brand">+</span></span>
               </div>
             </div>
             <p className="text-sm text-white/35 leading-relaxed mb-6">{t('footer.brand.desc')}</p>
@@ -57,9 +68,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               {navLinks.map((link) => (
                 <li key={link.id}>
-                  <button onClick={() => scrollTo(link.id)} className="text-sm text-white/35 hover:text-gold-400 transition-colors duration-300">
-                    {link.label}
-                  </button>
+                  <button onClick={() => scrollTo(link.id)} className="text-sm text-white/35 hover:text-gold-400 transition-colors duration-300">{link.label}</button>
                 </li>
               ))}
             </ul>
@@ -77,21 +86,7 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-xs font-semibold tracking-wide-elegant text-white/60 uppercase mb-5">{t('footer.wellness')}</h4>
             <p className="text-sm text-white/35 mb-4">{t('footer.wellness.desc')}</p>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const input = e.currentTarget.querySelector('input');
-                if (input && input.value) {
-                  input.value = '';
-                  const btn = e.currentTarget.querySelector('button');
-                  if (btn) {
-                    btn.textContent = t('footer.subscribed');
-                    setTimeout(() => { if (btn) btn.textContent = t('footer.subscribe'); }, 2000);
-                  }
-                }
-              }}
-              className="flex gap-2"
-            >
+            <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
               <input type="email" placeholder={t('footer.emailPlaceholder')} required
                 className="flex-1 px-4 py-2.5 bg-white/[0.06] border border-white/[0.08] rounded-lg text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-gold-400/30 transition-colors" />
               <button type="submit" className="px-4 py-2.5 bg-gold-400/20 border border-gold-400/20 text-gold-400 text-xs font-medium rounded-lg hover:bg-gold-400/30 transition-colors">
