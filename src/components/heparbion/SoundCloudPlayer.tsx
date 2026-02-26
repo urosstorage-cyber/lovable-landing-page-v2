@@ -15,8 +15,8 @@ const SoundCloudPlayer: React.FC = () => {
   if (!isVisible) return null;
 
   // SoundCloud embed URLs
-  const sloEmbedUrl = 'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/uros-colja/naravna_zascita_jeter_z_grenkimi_zelisci&color=%2300B493&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false';
-  const enEmbedUrl = sloEmbedUrl; // Same track for now — update when EN track is available
+  const sloEmbedUrl = 'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/uros-colja/naravna_za&color=%2300B493&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false';
+  const enEmbedUrl = 'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/uros-colja/bitterness-is-the-livers-fire&color=%2300B493&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false';
 
   const embedUrl = language === 'slo' ? sloEmbedUrl : enEmbedUrl;
   const podcastTitle = language === 'slo' ? 'Naravna zaščita jeter z grenkimi zelišči' : 'Natural Liver Protection with Bitter Herbs';
