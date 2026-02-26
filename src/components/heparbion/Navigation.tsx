@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import logoImg from '@/assets/logo-ak-plus.jpg';
 
 const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,14 +34,8 @@ const Navigation: React.FC = () => {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass py-3 shadow-sm' : 'bg-transparent py-5'}`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between">
-        <button onClick={() => scrollTo('hero')} className="flex items-center gap-2 group">
-          <div className="flex flex-col">
-            <span className="font-serif text-lg md:text-xl font-semibold tracking-elegant text-foreground leading-tight">Aleksandra</span>
-            <span className="font-serif text-lg md:text-xl font-semibold tracking-elegant text-foreground leading-tight">
-              Komasz <span className="text-brand">/</span> Plus
-              <span className="text-brand text-xs align-super ml-0.5">+</span>
-            </span>
-          </div>
+        <button onClick={() => scrollTo('hero')} className="flex items-center gap-3 group">
+          <img src={logoImg} alt="Aleksandra Komasz Plus" className="h-10 md:h-12 w-auto object-contain" />
         </button>
 
         <div className="hidden md:flex items-center gap-8">
