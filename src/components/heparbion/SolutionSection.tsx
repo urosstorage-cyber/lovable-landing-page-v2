@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Droplets, Wind, Sparkles, ChevronDown, X } from 'lucide-react';
@@ -9,8 +9,8 @@ import bhumyamalakiImg from '@/assets/ingredients/bhumyamalaki.jpg';
 import celerySeedImg from '@/assets/ingredients/celery-seed.jpg';
 import fenugreekImg from '@/assets/ingredients/fenugreek.jpg';
 import gingerImg from '@/assets/ingredients/ginger.jpg';
-
-const PRODUCT_BACK = 'https://d64gsuwffb70l.cloudfront.net/699afc85723b98553d778884_1771766009852_ac9a1f3d.webp';
+import productImg1 from '@/assets/product-bottle-1.jpg';
+import productImg2 from '@/assets/product-bottle-2.jpg';
 
 const SolutionSection: React.FC = () => {
   const { ref: titleRef, isRevealed: titleRevealed } = useScrollReveal();
@@ -19,6 +19,17 @@ const SolutionSection: React.FC = () => {
   const { t, language } = useLanguage();
   const [expandedIng, setExpandedIng] = useState<number | null>(null);
   const [lightboxImg, setLightboxImg] = useState<string | null>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const productImages = [productImg1, productImg2];
+
+  const nextSlide = useCallback(() => {
+    setActiveSlide((prev) => (prev + 1) % productImages.length);
+  }, [productImages.length]);
+
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 4500);
+    return () => clearInterval(timer);
+  }, [nextSlide]);
 
   const ingredients = [
     { name: language === 'slo' ? 'Kalmegha' : 'Kalmegh (Andrographis)', detail: language === 'slo' ? 'Najpomembnejše grenko zelišče, ki hladi telo in je bogato z diterpenskimi laktoni, s čimer dolgoročno podpira celično stabilnost jeter.' : 'The premier bitter herb that cools the body, rich in diterpene lactones for long-term hepatic cell stability.', strength: '200mg', image: bhumyamalakiImg },
@@ -67,9 +78,28 @@ const SolutionSection: React.FC = () => {
           </div>
 
           <div className={`flex justify-center scroll-reveal-right ${contentRevealed ? 'revealed' : ''}`}>
-            <div className="relative">
+            <div className="relative w-[300px] md:w-[400px]">
               <div className="absolute inset-0 bg-gradient-to-br from-gold-400/10 via-transparent to-brand/10 rounded-3xl blur-3xl scale-110" />
-              <img src={PRODUCT_BACK} alt="Heparbion Plus ingredients label" className="relative w-[300px] md:w-[360px] h-auto rounded-2xl shadow-2xl shadow-black/20" />
+              <div className="relative overflow-hidden rounded-2xl shadow-2xl shadow-black/20 aspect-[3/4]">
+                {productImages.map((img, idx) => (
+                  <img
+                    key={idx}
+                    src={img}
+                    alt={`Heparbion Plus product ${idx + 1}`}
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${activeSlide === idx ? 'opacity-100' : 'opacity-0'}`}
+                  />
+                ))}
+              </div>
+              {/* Slide indicators */}
+              <div className="flex justify-center gap-2 mt-4">
+                {productImages.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveSlide(idx)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${activeSlide === idx ? 'bg-gold-400 w-6' : 'bg-white/20'}`}
+                  />
+                ))}
+              </div>
               <div className="absolute -top-4 -right-4 glass-dark rounded-xl px-4 py-2.5 animate-float" style={{ animationDelay: '1s' }}>
                 <p className="text-[10px] text-gold-400/60 uppercase tracking-wide">{t('solution.badge')}</p>
                 <p className="text-sm font-medium text-white">120 {t('solution.capsules')}</p>

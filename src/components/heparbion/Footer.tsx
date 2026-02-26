@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Leaf, Mail, MapPin } from 'lucide-react';
+import { Mail, MapPin } from 'lucide-react';
+import logoImg from '@/assets/logo-ak-plus.jpg';
 
 const Footer: React.FC = () => {
   const { t, language } = useLanguage();
@@ -45,12 +46,8 @@ const Footer: React.FC = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-16">
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 mb-5">
-              <Leaf size={18} className="text-gold-400/70" />
-              <div>
-                <span className="font-serif text-lg font-semibold tracking-elegant text-white leading-tight block">Aleksandra Komasz</span>
-                <span className="text-xs text-white/40 tracking-wide">/ Plus<span className="text-brand">+</span></span>
-              </div>
+            <div className="flex items-center gap-3 mb-5">
+              <img src={logoImg} alt="Aleksandra Komasz Plus" className="h-12 w-auto object-contain brightness-0 invert opacity-80" />
             </div>
             <p className="text-sm text-white/35 leading-relaxed mb-6">{t('footer.brand.desc')}</p>
             <div className="space-y-2">
