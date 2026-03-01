@@ -1,5 +1,12 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
 
+// Force full reload on HMR to preserve context provider chain
+if (import.meta.hot) {
+  import.meta.hot.accept(() => {
+    window.location.reload();
+  });
+}
+
 export type Language = 'en' | 'slo';
 
 interface LanguageContextType {
