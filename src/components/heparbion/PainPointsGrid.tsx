@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { CloudFog, Zap, Scale, Brain, Moon, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 import liverBalanceImg from '@/assets/painpoints/liver-balance.jpg';
 import bitterHerbsImg from '@/assets/painpoints/bitter-herbs.jpg';
@@ -34,11 +34,11 @@ const PainPointsGrid: React.FC = () => {
   ];
 
   const painPoints = [
-    { icon: Scale, question: t('pain.q1'), detail: t('pain.d1'), accent: 'bg-brand/[0.06]', span: 'md:col-span-2 md:row-span-1', image: images[0], subtitle: language === 'slo' ? sloTitles[0] : enTitles[0] },
-    { icon: CloudFog, question: t('pain.q2'), detail: t('pain.d2'), accent: 'bg-gold-400/[0.06]', span: 'md:col-span-1 md:row-span-2', image: images[1], subtitle: language === 'slo' ? sloTitles[1] : enTitles[1] },
-    { icon: Zap, question: t('pain.q3'), detail: t('pain.d3'), accent: 'bg-brand/[0.04]', span: 'md:col-span-1 md:row-span-1', image: images[2], subtitle: language === 'slo' ? sloTitles[2] : enTitles[2] },
-    { icon: Brain, question: t('pain.q4'), detail: t('pain.d4'), accent: 'bg-gold-400/[0.04]', span: 'md:col-span-1 md:row-span-1', image: images[3], subtitle: language === 'slo' ? sloTitles[3] : enTitles[3] },
-    { icon: Moon, question: t('pain.q5'), detail: t('pain.d5'), accent: 'bg-brand/[0.05]', span: 'md:col-span-2 md:row-span-1', image: images[4], subtitle: language === 'slo' ? sloTitles[4] : enTitles[4] },
+    { question: t('pain.q1'), detail: t('pain.d1'), accent: 'bg-brand/[0.06]', span: 'md:col-span-2 md:row-span-1', image: images[0], subtitle: language === 'slo' ? sloTitles[0] : enTitles[0] },
+    { question: t('pain.q2'), detail: t('pain.d2'), accent: 'bg-gold-400/[0.06]', span: 'md:col-span-1 md:row-span-2', image: images[1], subtitle: language === 'slo' ? sloTitles[1] : enTitles[1] },
+    { question: t('pain.q3'), detail: t('pain.d3'), accent: 'bg-brand/[0.04]', span: 'md:col-span-1 md:row-span-1', image: images[2], subtitle: language === 'slo' ? sloTitles[2] : enTitles[2] },
+    { question: t('pain.q4'), detail: t('pain.d4'), accent: 'bg-gold-400/[0.04]', span: 'md:col-span-1 md:row-span-1', image: images[3], subtitle: language === 'slo' ? sloTitles[3] : enTitles[3] },
+    { question: t('pain.q5'), detail: t('pain.d5'), accent: 'bg-brand/[0.05]', span: 'md:col-span-2 md:row-span-1', image: images[4], subtitle: language === 'slo' ? sloTitles[4] : enTitles[4] },
   ];
 
   const sectionTitle = language === 'slo'
@@ -66,15 +66,12 @@ const PainPointsGrid: React.FC = () => {
                 <img src={point.image} alt={point.subtitle} className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
               </div>
               <div className="p-6 md:p-8">
-                <div className={`w-12 h-12 rounded-xl ${point.accent} flex items-center justify-center mb-4`}>
-                  <point.icon size={22} className="text-brand/70" strokeWidth={1.5} />
-                </div>
                 <p className="text-[11px] font-medium text-brand/60 uppercase tracking-wide mb-2">{point.subtitle}</p>
                 <h3 className="font-serif text-lg md:text-xl font-medium text-foreground mb-3 leading-snug">{point.question}</h3>
-                <div className="flex items-center gap-1 text-xs text-brand font-medium mb-2">
+                <button className={`inline-flex items-center gap-1.5 text-xs font-medium px-4 py-2 rounded-full border transition-all duration-300 ${expanded === i ? 'bg-brand/10 border-brand/20 text-brand' : 'bg-foreground/[0.03] border-foreground/10 text-foreground/60 hover:border-brand/20 hover:text-brand'}`}>
                   <span>{expanded === i ? (t('pain.readLess') || 'Read less') : (t('pain.readMore') || 'Read more')}</span>
-                  <ChevronDown size={14} className={`transition-transform duration-300 ${expanded === i ? 'rotate-180' : ''}`} />
-                </div>
+                  <ChevronDown size={12} className={`transition-transform duration-300 ${expanded === i ? 'rotate-180' : ''}`} />
+                </button>
                 <div className={`overflow-hidden transition-all duration-500 ${expanded === i ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
                   <p className="text-sm text-foreground/50 leading-relaxed pt-2">{point.detail}</p>
                 </div>
